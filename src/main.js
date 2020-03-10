@@ -1,12 +1,18 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
-import store from './store'
+import meta from 'vue-meta'
+import { createRouter } from './router'
+import { createStore } from './store'
 
-Vue.config.productionTip = false
+Vue.use(meta)
+export function createApp(){
+  const router = createRouter()
+  const store = createStore()
+  const app = new Vue({
+    router,
+    store,
+    render: h => h(App)
+  })
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+  return { app, router, store}
+}
